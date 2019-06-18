@@ -1,0 +1,9 @@
+.Palette {
+  height: 100vh;
+}
+
+.Palette-colors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: 90%;
+}
