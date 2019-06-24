@@ -4,6 +4,7 @@
   justify-content: flex-start;
   height: 6vh;
 }
+
 .logo {
   margin-right: 15px;
   padding: 0 13px;
@@ -29,9 +30,11 @@
 .rc-slider-track {
   background-color: transparent;
 }
+
 .rc-slider-rail {
   height: 8px;
 }
+
 .rc-slider-handle,
 .rc-slider-handle:active,
 .rc-slider-handle:focus,
@@ -44,4 +47,9 @@
   height: 13px;
   margin-left: -7px;
   margin-top: -3px;
+}
+
+.select-container {
+  margin-left: auto;
+  margin-right: 1rem;
 }
