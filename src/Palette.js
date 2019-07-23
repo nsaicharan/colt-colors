@@ -16,7 +16,13 @@ function Palette({ palette }) {
   }
 
   const colorBoxes = palette.colors[level].map((color, i) => (
-    <ColorBox background={color[format]} name={color.name} key={color.id} />
+    <ColorBox
+      background={color[format]}
+      name={color.name}
+      moreUrl={`/palette/${palette.id}/${color.id}`}
+      key={color.id}
+      showLink={true}
+    />
   ));
 
   return (
