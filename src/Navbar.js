@@ -10,7 +10,7 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Navbar.css";
 
-function Navbar({ level, changeLevel, changeFormat }) {
+function Navbar({ level, changeLevel, changeFormat, showingAllColors }) {
   const [format, setFormat] = useState("hex");
   const [open, setOpen] = useState(false);
 
@@ -30,19 +30,21 @@ function Navbar({ level, changeLevel, changeFormat }) {
         <Link to="/">ui-colors</Link>
       </div>
 
-      <div className="slider-container">
-        <span>Level: {level}</span>
+      {showingAllColors && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
 
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={changeLevel}
-          />
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={changeLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="select-container">
         <Select value={format} onChange={handleFormatChange}>
