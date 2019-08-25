@@ -4,7 +4,7 @@ import MiniPalette from "./MiniPalette";
 
 const styles = {
   root: {
-    backgroundColor: "blue",
+    backgroundColor: "#434190",
     minHeight: "100vh",
     display: "flex",
     alignItems: "flex-start",
@@ -27,9 +27,10 @@ const styles = {
   palettes: {
     boxSizing: "border-box",
     width: "100%",
+    marginBottom: "30px",
     display: "grid",
-    gridTemplateColumns: "repeat(3, 30%)",
-    gridGap: "5%"
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gridGap: "30px"
   }
 };
 
