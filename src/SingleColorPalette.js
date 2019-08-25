@@ -40,7 +40,7 @@ function SingleColorPalette(props) {
       <Navbar changeFormat={changeFormat} showingAllColors={false} />
       <div className="Palette-colors">
         {colorBoxes}
-        <div className="ColorBox go-back">
+        <div className="go-back">
           <Link to={`/palette/${props.palette.id}`} className="back-button">
             Go Back
           </Link>
