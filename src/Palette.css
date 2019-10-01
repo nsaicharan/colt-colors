@@ -1,15 +1,15 @@
-.Palette {
+/* .Palette {
   height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
+} */
 
-.Palette-colors {
+/* .Palette-colors {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   height: 90%;
-}
+} */
 
 .Palette-footer {
   background-color: white;
