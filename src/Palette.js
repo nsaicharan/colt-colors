@@ -2,22 +2,8 @@ import React, { useState } from "react";
 import ColorBox from "./ColorBox";
 import Navbar from "./Navbar";
 import PaletteFooter from "./PaletteFooter";
+import styles from './styles/PaletteStyles'
 import { withStyles } from "@material-ui/styles";
-import "./Palette.css";
-
-const styles = {
-  Palette: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
-  colors: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    height: "90%"
-  }
-};
 
 function Palette({ palette, classes }) {
   const [level, setLevel] = useState(500);
