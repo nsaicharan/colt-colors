@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NewPaletteForm() {
+function NewPaletteForm(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState("teal");
@@ -101,6 +101,19 @@ function NewPaletteForm() {
     const newColor = { color: currentColor, name: newName };
     setColors([...colors, newColor]);
     setNewName("");
+  };
+
+  const handleSubmit = () => {
+    const newName = "New Test Palette";
+
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/\s/g, "-"),
+      colors
+    };
+
+    props.savePalette(newPalette);
+    props.history.push("/");
   };
 
   // Create Custom Validation Rules
@@ -133,6 +146,10 @@ function NewPaletteForm() {
           <Typography variant="h6" noWrap>
             Create a Palette
           </Typography>
+
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -192,7 +209,11 @@ function NewPaletteForm() {
         <div className={classes.drawerHeader} />
 
         {colors.map(color => (
-          <DraggableColorBox color={color.color} name={color.name} />
+          <DraggableColorBox
+            color={color.color}
+            name={color.name}
+            key={color.name}
+          />
         ))}
       </main>
     </div>
