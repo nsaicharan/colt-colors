@@ -24,7 +24,11 @@ function App() {
         exact
         path="/palette/new"
         render={routerProps => (
-          <NewPaletteForm savePalette={savePalette} {...routerProps} />
+          <NewPaletteForm
+            {...routerProps}
+            savePalette={savePalette}
+            palettes={palettes}
+          />
         )}
       />
       <Route
