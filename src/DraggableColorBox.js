@@ -5,11 +5,12 @@ import { SortableElement } from "react-sortable-hoc";
 
 const styles = {
   root: {
+    position: "relative",
+    display: "inline-block",
+    verticalAlign: "middle",
     width: "20%",
     height: "25%",
     margin: "0 auto",
-    display: "inline-block",
-    position: "relative",
     cursor: "pointer",
     marginBottom: "-3.5px",
     "&:hover svg": {

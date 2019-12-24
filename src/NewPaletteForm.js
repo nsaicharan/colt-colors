@@ -81,7 +81,8 @@ function NewPaletteForm(props) {
   const [currentColor, setCurrentColor] = useState("teal");
   const [newColorName, setNewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
-  const [colors, setColors] = useState([{ color: "blue", name: "blue" }]);
+  const [colors, setColors] = useState(props.palettes[0].colors);
+  const paletteIsFull = colors.length >= 20;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -122,6 +123,15 @@ function NewPaletteForm(props) {
 
   const deleteColor = colorName => {
     setColors(colors.filter(color => color.name !== colorName));
+  };
+
+  const clearColors = () => setColors([]);
+
+  const addRandomColor = () => {
+    const allColors = props.palettes.map(palette => palette.colors).flat();
+    const rand = Math.floor(Math.random() * allColors.length);
+
+    setColors([...colors, allColors[rand]]);
   };
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
@@ -196,10 +206,15 @@ function NewPaletteForm(props) {
         <Divider />
         <Typography variant="h4">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={clearColors}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={paletteIsFull}
+            onClick={addRandomColor}
+          >
             Random Color
           </Button>
         </div>
@@ -222,9 +237,10 @@ function NewPaletteForm(props) {
             variant="contained"
             color="primary"
             style={{ backgroundColor: currentColor }}
+            disabled={paletteIsFull}
             type="submit"
           >
-            Add Color
+            {paletteIsFull ? "Palette Full" : "Add Color"}
           </Button>
         </ValidatorForm>
       </Drawer>
