@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import PaletteFormNav from "./PaletteFormNav";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
 import { ChromePicker } from "react-color";
@@ -80,7 +77,6 @@ function NewPaletteForm(props) {
   const [open, setOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState("teal");
   const [newColorName, setNewColorName] = useState("");
-  const [newPaletteName, setNewPaletteName] = useState("");
   const [colors, setColors] = useState(props.palettes[0].colors);
   const paletteIsFull = colors.length >= 20;
 
@@ -100,17 +96,13 @@ function NewPaletteForm(props) {
     setNewColorName(e.target.value);
   };
 
-  const handlePaletteNameChange = e => {
-    setNewPaletteName(e.target.value);
-  };
-
   const addNewColor = () => {
     const newColor = { color: currentColor, name: newColorName };
     setColors([...colors, newColor]);
     setNewColorName("");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = newPaletteName => {
     const newPalette = {
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/\s/g, "-"),
@@ -145,50 +137,16 @@ function NewPaletteForm(props) {
   ValidatorForm.addValidationRule("isColorUnique", value =>
     colors.every(({ color }) => color !== currentColor)
   );
-  ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
-    props.palettes.every(({ paletteName }) => paletteName !== newPaletteName)
-  );
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Create a Palette
-          </Typography>
-
-          <ValidatorForm onSubmit={handleSubmit}>
-            <TextValidator
-              value={newPaletteName}
-              name="newPaletteName"
-              validators={["required", "isPaletteNameUnique"]}
-              errorMessages={[
-                "Enter Palette Name",
-                "Palette Name Already Exits!"
-              ]}
-              onChange={handlePaletteNameChange}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <PaletteFormNav
+        palettes={props.palettes}
+        classes={classes}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+        handleSubmit={handleSubmit}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"
