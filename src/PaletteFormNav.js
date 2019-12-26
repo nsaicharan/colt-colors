@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import PaletteMetaForm from "./PaletteMetaForm";
 
 const drawerWidth = 400;
 const styles = theme => ({
@@ -23,6 +23,7 @@ const styles = theme => ({
     }),
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     height: "64px"
   },
   appBarShift: {
@@ -37,7 +38,15 @@ const styles = theme => ({
     marginLeft: 12,
     marginRight: 20
   },
-  navBtns: {}
+  navBtns: {
+    marginRight: "1rem",
+    "& a": {
+      textDecoration: "none"
+    }
+  },
+  button: {
+    margin: "0 0.5rem"
+  }
 });
 
 function PaletteFormNav({
@@ -47,15 +56,11 @@ function PaletteFormNav({
   handleSubmit,
   handleDrawerOpen
 }) {
-  const [newPaletteName, setNewPaletteName] = useState("");
+  const [formShowing, setFormShowing] = useState(false);
 
-  const handlePaletteNameChange = e => {
-    setNewPaletteName(e.target.value);
-  };
-
-  ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
-    palettes.every(({ paletteName }) => paletteName !== newPaletteName)
-  );
+  function showForm() {
+    setFormShowing(true);
+  }
 
   return (
     <div className={classes.root}>
@@ -82,28 +87,29 @@ function PaletteFormNav({
         </Toolbar>
 
         <div className={classes.navBtns}>
-          <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
-            <TextValidator
-              value={newPaletteName}
-              name="newPaletteName"
-              validators={["required", "isPaletteNameUnique"]}
-              errorMessages={[
-                "Enter Palette Name",
-                "Palette Name Already Exits!"
-              ]}
-              onChange={handlePaletteNameChange}
-            />
-            <Button variant="contained" color="primary" type="submit">
-              Save Palette
-            </Button>
-          </ValidatorForm>
           <Link to="/">
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+            >
               Go Back
             </Button>
           </Link>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={showForm}
+            className={classes.button}
+          >
+            Save
+          </Button>
         </div>
       </AppBar>
+
+      {formShowing && (
+        <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} />
+      )}
     </div>
   );
 }
